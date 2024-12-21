@@ -1,40 +1,53 @@
-"use client" // Add this at the top
+"use client"
 
 import React, { useState, useEffect } from "react"
+import { BoxWrapper, Input, Button } from "@/styles/styled-components" // Import from the common styled-components file
 
 const LoginBox: React.FC = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [isClient, setIsClient] = useState(false) // Track if we're on the client side
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
-    // This ensures the code only runs on the client side
     setIsClient(true)
   }, [])
 
   const handleLogin = () => {
     if (isClient && window.lightdm) {
-      window.lightdm.start_authentication(username)
-      window.lightdm.provide_secret(password)
+      try {
+        window.lightdm.start_authentication(username)
+        window.lightdm.provide_secret(password)
+
+        // Optionally, add a success callback or event listener
+        // For example, you could listen to a success or failure event here
+      } catch (error) {
+        console.error("Authentication failed:", error)
+        alert("Login failed. Please check your credentials and try again.")
+      }
+    } else {
+      console.error(
+        "LightDM is not available or client-side rendering is not ready."
+      )
+      alert("Unable to initialize authentication. Please try again later.")
     }
   }
 
   return (
-    <div className="login-box">
-      <input
+    <BoxWrapper>
+      <Input
         type="text"
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <input
+      <Input
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleLogin}>Login</button>
-    </div>
+      <Button onClick={handleLogin}>Login</Button>
+    </BoxWrapper>
   )
 }
 
