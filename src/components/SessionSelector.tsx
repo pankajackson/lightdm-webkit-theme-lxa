@@ -1,40 +1,20 @@
-"use client"
+import React from "react"
 
-import React, { useState, useEffect } from "react"
-import { Button } from "@/styles/styled-components" // Import common Button component
-
-const SessionSelector: React.FC = () => {
-  const [selectedSession, setSelectedSession] = useState<string>("")
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  const handleSessionChange = (session: string) => {
-    if (isClient && window.lightdm) {
-      setSelectedSession(session) // Set the selected session here
-      window.lightdm.start_session(session)
-    }
-  }
-
+const SessionSelector: React.FC<{
+  sessions: string[]
+  onSelect: (session: string) => void
+}> = ({ sessions, onSelect }) => {
   return (
-    <div>
-      {isClient &&
-        window.lightdm?.get_sessions().map((session) => (
-          <Button
-            key={session.key}
-            onClick={() => handleSessionChange(session.key)}
-            style={{
-              backgroundColor:
-                selectedSession === session.key ? "#0056b3" : "#007bff",
-            }}
-          >
-            {session.name}
-          </Button>
-        ))}
-      {selectedSession && <div>Selected Session: {selectedSession}</div>}
-    </div>
+    <select
+      className="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none"
+      onChange={(e) => onSelect(e.target.value)}
+    >
+      {sessions.map((session, index) => (
+        <option key={index} value={session}>
+          {session}
+        </option>
+      ))}
+    </select>
   )
 }
 

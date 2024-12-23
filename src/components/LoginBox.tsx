@@ -1,53 +1,37 @@
-"use client"
-
-import React, { useState, useEffect } from "react"
-import { BoxWrapper, Input, Button } from "@/styles/styled-components" // Import from the common styled-components file
+import React, { useState } from "react"
 
 const LoginBox: React.FC = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
 
   const handleLogin = () => {
-    if (isClient && window.lightdm) {
-      try {
-        window.lightdm.start_authentication(username)
-        window.lightdm.provide_secret(password)
-
-        // Optionally, add a success callback or event listener
-        // For example, you could listen to a success or failure event here
-      } catch (error) {
-        console.error("Authentication failed:", error)
-        alert("Login failed. Please check your credentials and try again.")
-      }
-    } else {
-      console.error(
-        "LightDM is not available or client-side rendering is not ready."
-      )
-      alert("Unable to initialize authentication. Please try again later.")
-    }
+    console.log(`Logging in as ${username}`)
+    // Replace with LightDM login logic
   }
 
   return (
-    <BoxWrapper>
-      <Input
+    <div className="flex flex-col items-center justify-center bg-gray-800 p-6 rounded-md shadow-lg">
+      <input
         type="text"
         placeholder="Username"
+        className="mb-4 w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <Input
+      <input
         type="password"
         placeholder="Password"
+        className="mb-4 w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button onClick={handleLogin}>Login</Button>
-    </BoxWrapper>
+      <button
+        className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        onClick={handleLogin}
+      >
+        Login
+      </button>
+    </div>
   )
 }
 
