@@ -1,6 +1,4 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+# Node.js
 /node_modules
 /.pnp
 .pnp.*
@@ -13,34 +11,38 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
+# Parcel cache
+.cache/
+.parcel-cache/
 
-# production
-/build
+# Build output
+/dist/
+/live/
 
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# Environment files
 .env*
 
-# vercel
-.vercel
+# Operating system files
+.DS_Store
+Thumbs.db
+
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
-# IDE and Editor settings
+# IDE and editor files
 .vscode/
 .idea/
 .DS_Store
+*.swp
+*.swo
+*.swn
+
+# Optional: Exclude any other files or directories that shouldn't be in version control
+# For example, you can add your own config or temporary files here.
