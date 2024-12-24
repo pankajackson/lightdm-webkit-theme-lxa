@@ -8,6 +8,8 @@ const Container = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 `
 
 const FormContainer: React.FC<{ children: React.ReactNode }> = ({

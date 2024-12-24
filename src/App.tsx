@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #3498db, #bf19a4);
+  background: linear-gradient(135deg, #3498db, #2ecc71);
   font-family: "Roboto", sans-serif;
 `
 

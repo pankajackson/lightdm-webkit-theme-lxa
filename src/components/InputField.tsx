@@ -2,19 +2,13 @@ import React from "react"
 import styled from "styled-components"
 
 const StyledInput = styled.input`
-  padding: 12px 20px;
+  padding: 10px;
   font-size: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 16px; /* Adds space below the input field */
   width: 100%;
-  border: 2px solid #1abc9c;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #ecf0f1;
-  color: #34495e;
-
-  &:focus {
-    border-color: #16a085;
-    outline: none;
-  }
+  box-sizing: border-box;
 `
 
 const InputField: React.FC<{ type: string; placeholder: string }> = ({
