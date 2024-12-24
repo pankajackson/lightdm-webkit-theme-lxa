@@ -1,22 +1,45 @@
-import "@/styles/SessionSelector.css"
+"use client"
 
-interface Session {
-  name: string
-  key: string
-}
+import React, { useState, useEffect } from "react"
 
-interface SessionSelectorProps {
-  sessions: Session[]
-  onSelect: (session: string) => void
-}
+const SessionSelector: React.FC = () => {
+  const [sessions, setSessions] = useState<{ name: string; key: string }[]>([])
+  const [selectedSession, setSelectedSession] = useState("")
 
-const SessionSelector: React.FC<SessionSelectorProps> = ({
-  sessions,
-  onSelect,
-}) => {
+  useEffect(() => {
+    // Ensure this runs only on the client
+    if (typeof window !== "undefined" && window.lightdm) {
+      setSessions(window.lightdm.get_sessions())
+    }
+  }, [])
+
+  const handleSessionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSession(event.target.value)
+  }
+
   return (
-    <div className="session-selector">
-      <select onChange={(e) => onSelect(e.target.value)}>
+    <div
+      style={{
+        margin: "20px auto",
+        maxWidth: "300px",
+        textAlign: "left",
+      }}
+    >
+      <select
+        style={{
+          display: "block",
+          width: "100%",
+          padding: "8px",
+          marginBottom: "10px",
+          border: "1px solid #444",
+          backgroundColor: "#2a2a2a",
+          color: "#fff",
+          borderRadius: "4px",
+        }}
+        value={selectedSession}
+        onChange={handleSessionChange}
+      >
+        <option value="">Select Session</option>
         {sessions.map((session) => (
           <option key={session.key} value={session.key}>
             {session.name}
