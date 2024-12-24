@@ -1,31 +1,39 @@
-import React, { useState } from "react"
+import React from "react"
+import styled from "styled-components"
+import FormContainer from "./components/FormContainer"
+import InputField from "./components/InputField"
+import Button from "./components/Button"
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #3498db, #bf19a4);
+  font-family: "Roboto", sans-serif;
+`
+
+const Title = styled.h1`
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+`
 
 const App: React.FC = () => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-
   const handleLogin = () => {
-    console.log("Attempting login...")
-    // Communicate with LightDM here
+    console.log("Login clicked")
   }
 
   return (
-    <div className="login-container">
-      <h1>Welcome</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-    </div>
+    <Wrapper>
+      <FormContainer>
+        <Title>Login</Title>
+        <InputField type="text" placeholder="Username" />
+        <InputField type="password" placeholder="Password" />
+        <Button onClick={handleLogin} label="Log In" />
+      </FormContainer>
+    </Wrapper>
   )
 }
 
