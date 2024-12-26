@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
   height: 100vh;
   background: linear-gradient(135deg, #3498db, #2ecc71);
   font-family: "Roboto", sans-serif;
@@ -37,7 +38,7 @@ const App: React.FC = () => {
         <InputField type="password" placeholder="Password" />
         <Button onClick={handleLogin} label="Log In" />
       </FormContainer>
-      <Clock />
+      <Clock is24Hour={false} />
     </Wrapper>
   )
 }

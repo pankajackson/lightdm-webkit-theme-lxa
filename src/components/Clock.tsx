@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 
 const ClockContainer = styled.div`
-  position: absolute;
-  bottom: 4rem;
-  left: 4rem;
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
   color: #efefef;
   font-family: "Lato", sans-serif;
   text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5), 0px -1px 5px rgba(0, 0, 0, 0.1);
@@ -12,24 +12,39 @@ const ClockContainer = styled.div`
 
 const TimeDisplay = styled.h1`
   font-size: 8rem;
+  margin: 0;
 `
 
 const DateDisplay = styled.h2`
   font-size: 2.5rem;
+  margin: 0;
 `
 
-const formatTime = (time: Date) => {
-  let hours = time.getHours().toString(10)
-  if (hours.length === 1) {
-    hours = "0" + hours
+// Custom padding function
+const padStart = (
+  str: string,
+  targetLength: number,
+  padString: string = "0"
+): string => {
+  while (str.length < targetLength) {
+    str = padString + str
+  }
+  return str
+}
+
+// Utility functions
+const formatTime = (time: Date, is24Hour: boolean) => {
+  let hours = time.getHours()
+  if (!is24Hour) {
+    hours = hours % 12 || 12 // Convert to 12-hour format
   }
 
-  let minutes = time.getMinutes().toString(10)
-  if (minutes.length === 1) {
-    minutes = "0" + minutes
-  }
+  const minutes = padStart(time.getMinutes().toString(), 2, "0")
+  const formattedHours = padStart(hours.toString(), 2, "0")
 
-  return `${hours}:${minutes}`
+  return `${formattedHours}:${minutes}${
+    !is24Hour ? (time.getHours() >= 12 ? " PM" : " AM") : ""
+  }`
 }
 
 const formatDate = (time: Date) => {
@@ -40,7 +55,12 @@ const formatDate = (time: Date) => {
   })
 }
 
-const Clock: React.FC = () => {
+// Clock component
+interface ClockProps {
+  is24Hour?: boolean
+}
+
+const Clock: React.FC<ClockProps> = ({ is24Hour = true }) => {
   const [time, setTime] = useState(new Date())
 
   useEffect(() => {
@@ -51,11 +71,11 @@ const Clock: React.FC = () => {
     return () => {
       clearInterval(timerID)
     }
-  }, [setTime])
+  }, [])
 
   return (
     <ClockContainer>
-      <TimeDisplay>{formatTime(time)}</TimeDisplay>
+      <TimeDisplay>{formatTime(time, is24Hour)}</TimeDisplay>
       <DateDisplay>{formatDate(time)}</DateDisplay>
     </ClockContainer>
   )
