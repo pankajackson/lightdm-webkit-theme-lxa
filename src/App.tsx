@@ -3,6 +3,7 @@ import styled from "styled-components"
 import FormContainer from "./components/FormContainer"
 import InputField from "./components/InputField"
 import Button from "./components/Button"
+import Clock from "./components/Clock"
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ const App: React.FC = () => {
         <InputField type="password" placeholder="Password" />
         <Button onClick={handleLogin} label="Log In" />
       </FormContainer>
+      <Clock />
     </Wrapper>
   )
 }
