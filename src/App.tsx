@@ -23,6 +23,9 @@ const Title = styled.h1`
 const App: React.FC = () => {
   const handleLogin = () => {
     console.log("Login clicked")
+    console.log(
+      window.lightdm.users.forEach((user) => console.log(user.username))
+    )
   }
 
   return (
