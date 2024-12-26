@@ -7,9 +7,7 @@ const App: React.FC = () => {
   if (!window.lightdm) {
     console.log("lightDM not loaded")
   } else {
-    console.log(
-      window.lightdm.users.forEach((user) => console.log(user.username))
-    )
+    console.log("lightDM loaded")
   }
 
   return (

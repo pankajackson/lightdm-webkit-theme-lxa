@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "watch:web": "parcel src/index.html --dist-dir live/web",
-    "watch:lightdm": "parcel src/index.html --dist-dir live/lightdm --public-url ./ && cp -r public/* live/lightdm",
-    "build": "parcel build src/index.html --dist-dir dist --public-url ./ && cp -r public/* dist/"
+    "watch:lightdm": "mkdir -p live/lightdm && rm -rf live/lightdm/* && cp -r public/* live/lightdm/ && parcel src/index.html --dist-dir live/lightdm --public-url ./",
+    "build": "mkdir -p live/lightdm && rm -rf live/lightdm/* && cp -r public/* live/lightdm/ && parcel build src/index.html --dist-dir live/lightdm --public-url ./"
   },
   "keywords": [],
   "author": "",
