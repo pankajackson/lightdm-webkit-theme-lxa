@@ -11,7 +11,7 @@ const ClockContainer = styled.div`
 `
 
 const TimeDisplay = styled.h1`
-  font-size: 8rem;
+  font-size: 6rem;
   margin: 0;
 `
 
