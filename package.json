@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html --dist-dir live",
+    "start": "parcel src/index.html --dist-dir live --public-url ./ && cp -r public/* live/",
     "build": "parcel build src/index.html --dist-dir dist --public-url ./ && cp -r public/* dist/"
   },
   "keywords": [],
