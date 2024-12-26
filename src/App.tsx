@@ -1,45 +1,24 @@
 import React from "react"
-import styled from "styled-components"
-import FormContainer from "./components/FormContainer"
-import InputField from "./components/InputField"
-import Button from "./components/Button"
-import Clock from "./components/Clock"
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  height: 100vh;
-  background: linear-gradient(135deg, #3498db, #2ecc71);
-  font-family: "Roboto", sans-serif;
-`
-
-const Title = styled.h1`
-  color: white;
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2rem;
-`
+import BackgroundWrapper from "@/components/BackgroundWrapper"
+import Clock from "@/components/Clock"
+import Greeter from "@/components/Greeter"
 
 const App: React.FC = () => {
-  const handleLogin = () => {
-    console.log("Login clicked")
+  if (!window.lightdm) {
+    console.log("lightDM not loaded")
+  } else {
     console.log(
       window.lightdm.users.forEach((user) => console.log(user.username))
     )
   }
 
   return (
-    <Wrapper>
-      <FormContainer>
-        <Title>Login</Title>
-        <InputField type="text" placeholder="Username" />
-        <InputField type="password" placeholder="Password" />
-        <Button onClick={handleLogin} label="Log In" />
-      </FormContainer>
-      <Clock is24Hour={false} />
-    </Wrapper>
+    <>
+      <BackgroundWrapper colors={{ color1: "#3498db", color2: "#2ecc71" }}>
+        <Greeter />
+        <Clock is24Hour={false} />
+      </BackgroundWrapper>
+    </>
   )
 }
 

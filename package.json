@@ -2,8 +2,8 @@
   "name": "lightdm-webkit2-theme",
   "version": "1.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html --dist-dir live --public-url ./ && cp -r public/* live/",
+    "watch:web": "parcel src/index.html --dist-dir live/web",
+    "watch:lightdm": "parcel src/index.html --dist-dir live/lightdm --public-url ./ && cp -r public/* live/lightdm",
     "build": "parcel build src/index.html --dist-dir dist --public-url ./ && cp -r public/* dist/"
   },
   "keywords": [],
