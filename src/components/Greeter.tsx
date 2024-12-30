@@ -2,14 +2,18 @@ import React, { useState } from "react"
 import Title from "@/components/styled/Title"
 import FormContainer from "@/components/styled/FormContainer"
 import InputField from "@/components/styled/InputField"
-import DropdownInputField from "./styled/DropDownInputField"
+import DropdownInputField from "@/components/styled/DropDownInputField"
 import Button from "@/components/styled/Button"
 
 const Greeter: React.FC = () => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
 
-  const users = ["user1", "user2", "user3"] // Example list of users
+  const users = [
+    { label: "user1", value: "user1" },
+    { label: "user2", value: "user2" },
+    { label: "user3", value: "user3" },
+  ] // Example list of users
 
   const handleLogin = () => {
     if (username.trim() === "" || password.trim() === "") {
@@ -27,7 +31,9 @@ const Greeter: React.FC = () => {
         options={users}
         value={username}
         label="Select username"
-        onChange={(value) => setUsername(value)}
+        id="ddlUsers"
+        name="ddUsers"
+        onChange={setUsername}
       />
       <InputField
         type="password"
