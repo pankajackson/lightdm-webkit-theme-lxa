@@ -10,10 +10,12 @@ const Greeter: React.FC = () => {
   const [password, setPassword] = useState<string>("")
 
   const users = [
-    { label: "user1", value: "user1" },
-    { label: "user2", value: "user2" },
-    { label: "user3", value: "user3" },
+    { label: "USer1", value: "user1" },
+    { label: "Pankaj2", value: "user2" },
+    { label: "Jacson3", value: "user3" },
   ] // Example list of users
+
+  const defaultUser = ""
 
   const handleLogin = () => {
     if (username.trim() === "" || password.trim() === "") {
@@ -29,7 +31,7 @@ const Greeter: React.FC = () => {
       <Title>Login</Title>
       <DropdownInputField
         options={users}
-        value={username}
+        defaultValue={defaultUser}
         label="Select username"
         id="ddlUsers"
         name="ddUsers"

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 
 const StyledSelect = styled.select`
@@ -22,28 +22,43 @@ const StyledOption = styled.option`
 `
 
 interface DropdownInputFieldProps {
-  options: { value: string; label: string }[] // Accept both value and label
-  value: string
+  options: { label: string; value: string }[]
+  defaultValue?: string
   label: string
-  id: string // Add id for HTML output
-  name: string // Add name for HTML output
+  id: string
+  name: string
   onChange: (value: string) => void
 }
 
 const DropdownInputField: React.FC<DropdownInputFieldProps> = ({
   options,
-  value,
+  defaultValue,
   label,
   id,
   name,
   onChange,
 }) => {
+  const [selectedValue, setSelectedValue] = useState<string>(defaultValue || "")
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedValue(defaultValue)
+      onChange(defaultValue)
+    }
+  }, [defaultValue, onChange])
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selected = e.target.value
+    setSelectedValue(selected)
+    onChange(selected)
+  }
+
   return (
     <StyledSelect
       id={id}
       name={name}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
+      value={selectedValue}
+      onChange={handleSelectChange}
     >
       <StyledOption value="">{label}</StyledOption>
       {options.map((option, index) => (
