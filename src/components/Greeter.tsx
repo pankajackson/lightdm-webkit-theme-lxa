@@ -4,18 +4,11 @@ import FormContainer from "@/components/styled/FormContainer"
 import InputField from "@/components/styled/InputField"
 import DropdownInputField from "@/components/styled/DropDownInputField"
 import Button from "@/components/styled/Button"
+import { users, defaultUser } from "@/dummyData"
 
 const Greeter: React.FC = () => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-
-  const users = [
-    { label: "USer1", value: "user1" },
-    { label: "Pankaj2", value: "user2" },
-    { label: "Jacson3", value: "user3" },
-  ] // Example list of users
-
-  const defaultUser = ""
 
   const handleLogin = () => {
     if (username.trim() === "" || password.trim() === "") {
