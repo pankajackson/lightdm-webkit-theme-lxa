@@ -26,6 +26,7 @@ const Greeter: React.FC = () => {
       <DropdownInputField
         options={users}
         value={username}
+        label="Select username"
         onChange={(value) => setUsername(value)}
       />
       <InputField
