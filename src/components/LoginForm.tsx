@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react"
 import styled from "styled-components"
 import CircularButton from "@/components/controls/CircularButton"
-import FormContainer from "./controls/FormContainer"
+import FormContainer from "@/components/controls/FormContainer"
 
 const StyledForm = styled.form`
   display: flex;
@@ -84,11 +84,9 @@ const LogInForm: React.FC<Props> = ({
             value={currentPassword}
             placeholder="Password"
           />
-          <CircularButton
-            disabled={isSubmitting}
-            label={isSubmitting ? <Spinner /> : "→"}
-            type="submit"
-          />
+          <CircularButton disabled={isSubmitting} type="submit">
+            {isSubmitting ? <Spinner /> : "→"}
+          </CircularButton>
         </InputWrapper>
       </StyledForm>
     </FormContainer>

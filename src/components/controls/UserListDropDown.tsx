@@ -60,7 +60,6 @@ const UserListDropDown: React.FC<UserListDropDownProps> = ({
       value={selectedValue}
       onChange={handleSelectChange}
     >
-      {/* <StyledOption value="">{label}</StyledOption> */}
       {users.map((user, index) => (
         <StyledOption key={index} value={user.username}>
           {user.display_name}

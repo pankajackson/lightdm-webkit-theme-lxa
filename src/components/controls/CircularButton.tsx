@@ -1,7 +1,6 @@
-import React from "react"
 import styled from "styled-components"
 
-const StyledCircularButton = styled.button`
+const CircularButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,18 +18,5 @@ const StyledCircularButton = styled.button`
     background-color: ${(props) => (props.disabled ? "#ccc" : "#0056b3")};
   }
 `
-
-const CircularButton: React.FC<{
-  disabled: boolean
-  onClick?: () => void
-  label: string | React.JSX.Element
-  type: "submit" | "reset"
-}> = ({ disabled, onClick, label, type }) => {
-  return (
-    <StyledCircularButton onClick={onClick} disabled={disabled} type={type}>
-      {label}
-    </StyledCircularButton>
-  )
-}
 
 export default CircularButton
