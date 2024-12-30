@@ -22,7 +22,7 @@ const StyledOption = styled.option`
 `
 
 interface DropdownInputFieldProps {
-  options: { label: string; value: string }[]
+  options: { display_name: string; username: string }[]
   defaultValue?: string
   label: string
   id: string
@@ -62,8 +62,8 @@ const DropdownInputField: React.FC<DropdownInputFieldProps> = ({
     >
       <StyledOption value="">{label}</StyledOption>
       {options.map((option, index) => (
-        <StyledOption key={index} value={option.value}>
-          {option.label}
+        <StyledOption key={index} value={option.username}>
+          {option.display_name}
         </StyledOption>
       ))}
     </StyledSelect>

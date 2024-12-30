@@ -2,8 +2,14 @@ import React from "react"
 import BackgroundWrapper from "@/components/BackgroundWrapper"
 import Clock from "@/components/Clock"
 import Greeter from "@/components/Greeter"
+import useLightDM from "@/lightdm/useLightDM"
 
-const App: React.FC = () => {
+interface Props {
+  initialLightDM: LightDM
+}
+
+const App: React.FC<Props> = ({ initialLightDM }) => {
+  const lightDM = useLightDM(initialLightDM)
   if (!window.lightdm) {
     console.log("lightDM not loaded")
   } else {
