@@ -4,7 +4,7 @@
   "scripts": {
     "watch:web": "parcel src/index.html --dist-dir live/web",
     "watch:lightdm": "mkdir -p live/lightdm && rm -rf live/lightdm/* && cp -r public/* live/lightdm/ && parcel src/index.html --dist-dir live/lightdm --public-url ./",
-    "build": "mkdir -p live/lightdm && rm -rf live/lightdm/* && cp -r public/* live/lightdm/ && parcel build src/index.html --dist-dir live/lightdm --public-url ./"
+    "build": "mkdir -p dist && rm -rf dist/* && parcel build src/index.html --dist-dir dist --public-url ./ && cp -r public/* dist/"
   },
   "keywords": [],
   "author": "",
