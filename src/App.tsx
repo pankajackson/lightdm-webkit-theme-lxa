@@ -27,6 +27,9 @@ const App: React.FC<Props> = ({ initialLightDM }) => {
           onUserSelect={lightDM.setUser}
           user={lightDM.user}
           users={lightDM.users}
+          session={lightDM.session}
+          onSessionSelect={lightDM.setSession}
+          sessions={lightDM.sessions}
         />
         <Clock is24Hour={false} />
       </BackgroundWrapper>

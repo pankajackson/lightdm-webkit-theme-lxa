@@ -30,6 +30,12 @@ const useLightDM = (initialLightDM: LightDM) => {
   const [password, setPassword] = useState("")
   const [user, setStateUser] = useState(findDefaultUser(initialLightDM))
   const [users, setUsers] = useState(initialLightDM.users)
+  const [session, setSession] = useState(
+    initialLightDM.sessions.find(
+      (s) => s.key === initialLightDM.default_session
+    )
+  )
+  const [sessions, setSessions] = useState(initialLightDM.sessions)
 
   const refreshFromLightDM = useCallback(() => {
     setAuthenticating(window.lightdm.in_authentication)
@@ -67,7 +73,7 @@ const useLightDM = (initialLightDM: LightDM) => {
   useEffect(() => {
     window.authentication_complete = () => {
       if (window.lightdm.is_authenticated) {
-        window.lightdm.start_session_sync("i3")
+        window.lightdm.start_session_sync(session?.key || "qtile")
       } else {
         alert("Authentication failed!")
       }
@@ -123,6 +129,10 @@ const useLightDM = (initialLightDM: LightDM) => {
     setUser,
     user,
     users,
+    session,
+    setSession,
+    sessions,
+    setSessions,
   }
 }
 

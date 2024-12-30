@@ -6,10 +6,14 @@ interface LightDMLanguage {
 interface LightDMSession {
   key: string
   name: string
+  comment?: string
 }
 
 interface LightDMUser {
   display_name: string
+  home_directory?: string
+  logged_in?: boolean
+  session?: LightDMSession.key
   image?: string
   username: string
 }
