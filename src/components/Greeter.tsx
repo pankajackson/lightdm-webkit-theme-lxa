@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Title from "@/components/controls/Title"
 import UserListDropDown from "@/components/controls/UserListDropDown"
 import GreeterContainer from "@/components/controls/GreeterContainer"
-import LogInForm from "@/components/LoginForm" // Assuming you place LogInForm in controls
+import LogInForm from "@/components/LoginForm"
 import SessionListDropDown from "@/components/controls/SessionListDropDown"
 
 interface Props {
@@ -42,6 +42,7 @@ const Greeter: React.FC<Props> = ({
       onUserSelect(selected)
     }
   }
+
   const handleSessionSelect = (newSession: string) => {
     setSelectedSession(newSession)
     const selected = sessions.find((s) => s.key === newSession)

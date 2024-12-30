@@ -4,8 +4,8 @@ import styled from "styled-components"
 const StyledSelect = styled.select`
   padding: 10px;
   font-size: 16px;
-  margin-bottom: 16px;
-  width: 100%;
+  margin-top: 20px;
+  width: 40%;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
