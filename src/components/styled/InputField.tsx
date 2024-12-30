@@ -4,18 +4,34 @@ import styled from "styled-components"
 const StyledInput = styled.input`
   padding: 10px;
   font-size: 16px;
-  margin-bottom: 16px; /* Adds space below the input field */
+  margin-bottom: 16px;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
 `
 
-const InputField: React.FC<{ type: string; placeholder: string }> = ({
+interface InputFieldProps {
+  type: string
+  placeholder: string
+  value?: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const InputField: React.FC<InputFieldProps> = ({
   type,
   placeholder,
+  value,
+  onChange,
 }) => {
-  return <StyledInput type={type} placeholder={placeholder} />
+  return (
+    <StyledInput
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  )
 }
 
 export default InputField
