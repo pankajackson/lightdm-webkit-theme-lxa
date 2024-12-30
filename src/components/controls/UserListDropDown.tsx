@@ -21,19 +21,17 @@ const StyledOption = styled.option`
   padding: 10px;
 `
 
-interface DropdownInputFieldProps {
-  options: { display_name: string; username: string }[]
+interface UserListDropDownProps {
+  users: LightDMUser[]
   defaultValue?: string
-  label: string
   id: string
   name: string
-  onChange: (value: string) => void
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
-const DropdownInputField: React.FC<DropdownInputFieldProps> = ({
-  options,
+const UserListDropDown: React.FC<UserListDropDownProps> = ({
+  users,
   defaultValue,
-  label,
   id,
   name,
   onChange,
@@ -43,14 +41,16 @@ const DropdownInputField: React.FC<DropdownInputFieldProps> = ({
   useEffect(() => {
     if (defaultValue) {
       setSelectedValue(defaultValue)
-      onChange(defaultValue)
+      const mockEvent = {
+        target: { value: defaultValue },
+      } as React.ChangeEvent<HTMLSelectElement>
+      onChange(mockEvent)
     }
   }, [defaultValue, onChange])
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selected = e.target.value
-    setSelectedValue(selected)
-    onChange(selected)
+    setSelectedValue(e.target.value)
+    onChange(e)
   }
 
   return (
@@ -60,14 +60,14 @@ const DropdownInputField: React.FC<DropdownInputFieldProps> = ({
       value={selectedValue}
       onChange={handleSelectChange}
     >
-      <StyledOption value="">{label}</StyledOption>
-      {options.map((option, index) => (
-        <StyledOption key={index} value={option.username}>
-          {option.display_name}
+      {/* <StyledOption value="">{label}</StyledOption> */}
+      {users.map((user, index) => (
+        <StyledOption key={index} value={user.username}>
+          {user.display_name}
         </StyledOption>
       ))}
     </StyledSelect>
   )
 }
 
-export default DropdownInputField
+export default UserListDropDown

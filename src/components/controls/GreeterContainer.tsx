@@ -12,10 +12,10 @@ const Container = styled.div`
   overflow: hidden;
 `
 
-const FormContainer: React.FC<{ children: React.ReactNode }> = ({
+const GreeterContainer: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return <Container>{children}</Container>
 }
 
-export default FormContainer
+export default GreeterContainer

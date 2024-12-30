@@ -1,43 +1,64 @@
 import React, { useState } from "react"
-import Title from "@/components/styled/Title"
-import FormContainer from "@/components/styled/FormContainer"
-import InputField from "@/components/styled/InputField"
-import DropdownInputField from "@/components/styled/DropDownInputField"
-import Button from "@/components/styled/Button"
-import { users, defaultUser } from "@/dummyData"
+import Title from "@/components/controls/Title"
+import UserListDropDown from "@/components/controls/UserListDropDown"
+import GreeterContainer from "@/components/controls/GreeterContainer"
+import LogInForm from "@/components/LoginForm" // Assuming you place LogInForm in controls
 
-const Greeter: React.FC = () => {
-  const [username, setUsername] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
+interface LightDMUser {
+  username: string
+  display_name: string
+}
 
-  const handleLogin = () => {
-    if (username.trim() === "" || password.trim() === "") {
-      console.log("Please fill in all fields")
-      return
+interface Props {
+  currentPassword: string
+  isSubmitting: boolean
+  onLogIn: () => void
+  onPasswordChange: (newPassword: string) => void
+  onUserSelect: (user: LightDMUser) => void
+  user: null | LightDMUser
+  users: LightDMUser[]
+}
+
+const Greeter: React.FC<Props> = ({
+  currentPassword,
+  isSubmitting,
+  onPasswordChange,
+  onLogIn,
+  onUserSelect,
+  user,
+  users,
+}) => {
+  const [selectedUser, setSelectedUser] = useState<string>(user?.username || "")
+
+  const handleUserSelect = (newUser: string) => {
+    setSelectedUser(newUser)
+    const selected = users.find((u) => u.username === newUser)
+    if (selected) {
+      onUserSelect(selected)
     }
-    console.log("Login submitted with:", { username, password })
-    // Add login logic here
+  }
+
+  const handleLoginSubmit = () => {
+    onLogIn()
   }
 
   return (
-    <FormContainer>
+    <GreeterContainer>
       <Title>Login</Title>
-      <DropdownInputField
-        options={users}
-        defaultValue={defaultUser}
-        label="Select username"
+      <UserListDropDown
+        users={users}
+        defaultValue={selectedUser}
         id="ddlUsers"
-        name="ddUsers"
-        onChange={setUsername}
+        name="ddlUsers"
+        onChange={(e) => handleUserSelect(e.target.value)}
       />
-      <InputField
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+      <LogInForm
+        currentPassword={currentPassword}
+        isSubmitting={isSubmitting}
+        onPasswordChange={onPasswordChange}
+        onSubmit={handleLoginSubmit}
       />
-      <Button onClick={handleLogin} label="Log In" />
-    </FormContainer>
+    </GreeterContainer>
   )
 }
 

@@ -19,7 +19,15 @@ const App: React.FC<Props> = ({ initialLightDM }) => {
   return (
     <>
       <BackgroundWrapper colors={{ color1: "#3498db", color2: "#2ecc71" }}>
-        <Greeter />
+        <Greeter
+          currentPassword={lightDM.password}
+          isSubmitting={lightDM.isAuthenticating}
+          onLogIn={lightDM.authenticate}
+          onPasswordChange={lightDM.setPassword}
+          onUserSelect={lightDM.setUser}
+          user={lightDM.user}
+          users={lightDM.users}
+        />
         <Clock is24Hour={false} />
       </BackgroundWrapper>
     </>
