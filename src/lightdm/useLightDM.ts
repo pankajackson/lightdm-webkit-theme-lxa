@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 
 const localStorageUserKey = "lastSelectedUser"
+const localStorageSessionKey = "lastSelectedSession"
 
 const findDefaultUser = (lightDM: LightDM): null | LightDMUser => {
   const { select_user, users } = lightDM
@@ -23,6 +24,27 @@ const findDefaultUser = (lightDM: LightDM): null | LightDMUser => {
   return user
 }
 
+const getSession = (initialLightDM: LightDM) => {
+  const { sessions } = initialLightDM
+  if (sessions.length === 1) {
+    return sessions[0]
+  }
+  let defaultSession =
+    initialLightDM.default_session ||
+    localStorage.getItem(localStorageSessionKey) ||
+    initialLightDM.sessions[0].key
+
+  if (!defaultSession) {
+    return null
+  }
+
+  const session = sessions.find((s) => s.key === defaultSession)
+  if (!session) {
+    return null
+  }
+  return session
+}
+
 const useLightDM = (initialLightDM: LightDM) => {
   const [isAuthenticating, setAuthenticating] = useState(
     initialLightDM.in_authentication
@@ -30,11 +52,7 @@ const useLightDM = (initialLightDM: LightDM) => {
   const [password, setPassword] = useState("")
   const [user, setStateUser] = useState(findDefaultUser(initialLightDM))
   const [users, setUsers] = useState(initialLightDM.users)
-  const [session, setSession] = useState(
-    initialLightDM.sessions.find(
-      (s) => s.key === initialLightDM.default_session
-    )
-  )
+  const [session, setStateSession] = useState(getSession(initialLightDM))
   const [sessions, setSessions] = useState(initialLightDM.sessions)
 
   const refreshFromLightDM = useCallback(() => {
@@ -70,10 +88,19 @@ const useLightDM = (initialLightDM: LightDM) => {
     [setStateUser]
   )
 
+  const setSession = useCallback(
+    (session: LightDMSession) => {
+      localStorage.setItem(localStorageSessionKey, session.key)
+      setStateSession(session)
+    },
+    [setStateSession]
+  )
+
   useEffect(() => {
     window.authentication_complete = () => {
       if (window.lightdm.is_authenticated) {
-        window.lightdm.start_session_sync(session?.key || "qtile")
+        const session = getSession(initialLightDM)
+        window.lightdm.start_session_sync(session?.key)
       } else {
         alert("Authentication failed!")
       }

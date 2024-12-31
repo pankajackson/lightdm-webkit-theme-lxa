@@ -13,7 +13,7 @@ interface Props {
   onUserSelect: (user: LightDMUser) => void
   user: null | LightDMUser
   users: LightDMUser[]
-  session: LightDMSession | null | undefined
+  session: LightDMSession | null
   sessions: LightDMSession[]
   onSessionSelect: (session: LightDMSession) => void
 }
@@ -32,7 +32,7 @@ const Greeter: React.FC<Props> = ({
 }) => {
   const [selectedUser, setSelectedUser] = useState<string>(user?.username || "")
   const [selectedSession, setSelectedSession] = useState<string>(
-    user?.session || session?.key || sessions[0]?.key || ""
+    user?.session || session?.key || ""
   )
 
   const handleUserSelect = (newUser: string) => {
