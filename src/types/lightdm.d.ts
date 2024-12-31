@@ -13,7 +13,7 @@ interface LightDMUser {
   display_name: string
   home_directory?: string
   logged_in?: boolean
-  session?: LightDMSession.key
+  session?: string
   image?: string
   username: string
 }

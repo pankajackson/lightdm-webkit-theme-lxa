@@ -32,7 +32,7 @@ const Greeter: React.FC<Props> = ({
 }) => {
   const [selectedUser, setSelectedUser] = useState<string>(user?.username || "")
   const [selectedSession, setSelectedSession] = useState<string>(
-    user?.session?.key || session?.key || ""
+    user?.session || session?.key || sessions[0]?.key || ""
   )
 
   const handleUserSelect = (newUser: string) => {
