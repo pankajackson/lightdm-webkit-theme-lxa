@@ -30,8 +30,8 @@ const getSession = (initialLightDM: LightDM) => {
     return sessions[0]
   }
   let defaultSession =
-    initialLightDM.default_session ||
     localStorage.getItem(localStorageSessionKey) ||
+    initialLightDM.default_session ||
     initialLightDM.sessions[0].key
 
   if (!defaultSession) {
@@ -99,8 +99,13 @@ const useLightDM = (initialLightDM: LightDM) => {
   useEffect(() => {
     window.authentication_complete = () => {
       if (window.lightdm.is_authenticated) {
-        const session = getSession(initialLightDM)
-        window.lightdm.start_session_sync(session?.key)
+        const selected_session = localStorage.getItem(localStorageSessionKey)
+        if (selected_session) {
+          window.lightdm.start_session_sync(selected_session)
+        } else {
+          console.warn("No session selected! Using default session")
+          window.lightdm.start_session_sync()
+        }
       } else {
         alert("Authentication failed!")
       }
