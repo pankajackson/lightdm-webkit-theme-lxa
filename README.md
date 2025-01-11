@@ -11,7 +11,7 @@ This is a custom LightDM Webkit2 theme built using React, TypeScript, styled-com
 
 ## Prerequisites
 
-- Node.js (>= 14.x)
+- Node.js (>= 14.x) [developed on v23.3.0]
 - npm or yarn
 - LightDM with Webkit2 enabled (for using custom web-based themes)
 
@@ -47,20 +47,32 @@ This is a custom LightDM Webkit2 theme built using React, TypeScript, styled-com
    After building the theme, you need to copy the contents of the `dist` directory to your LightDM Webkit2 theme directory (usually `/usr/share/lightdm-webkit/themes/` or similar depending on your system).
 
    ```bash
-   sudo cp -r dist/* /usr/share/lightdm-webkit/themes/your-theme-name/
+   # Create theme directory
+   sudo mkdir -p /usr/share/lightdm-webkit/themes/lxa
+
+   # Copy theme to system
+   sudo cp -r dist/* /usr/share/lightdm-webkit/themes/lxa/
    ```
 
-5. **Set LightDM to use the new theme:**
+5. **Setup LightDM to use webkit2 Greeter:**
 
-   Update LightDM's configuration file to use your custom theme. This file is usually located at `/etc/lightdm/lightdm.conf`. Add or modify the following line:
+   Update LightDM's configuration file to use your webkit2 greeter. This file is usually located at `/etc/lightdm/lightdm.conf`. Add or modify the following line:
 
    ```ini
-   [SeatDefaults]
+   [Seat:*]
    greeter-session=lightdm-webkit2-greeter
-   webkit-theme=your-theme-name
    ```
 
-6. **Restart LightDM:**
+6. **Set Webkit2 Greeter to use the `lxa` theme:**
+
+   Update the Webkit2 Greeter configuration file to set the new theme name. The configuration file can be found at `/etc/lightdm/lightdm-webkit2-greeter.conf`. Add or modify the following line:
+
+   ```init
+   [greeter]
+   webkit-theme=lxa
+   ```
+
+7. **Restart LightDM:**
 
    After setting the theme in LightDM's configuration, restart LightDM:
 
@@ -113,18 +125,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [styled-components](https://styled-components.com/)
 - [Parcel](https://parceljs.org/)
 - [LightDM](https://github.com/lightdm/lightdm)
-
-```
-
-### Explanation of sections:
-
-1. **Features:** Describes the main features of the project.
-2. **Prerequisites:** Lists the software requirements.
-3. **Installation:** Step-by-step guide on how to install and set up the project.
-4. **Development:** Instructions for running a local development server.
-5. **File Structure:** A breakdown of the project’s folder and file structure.
-6. **License:** Information about the license for the project.
-7. **Acknowledgements:** Acknowledging the libraries used in the project.
-
-This `README.md` should give users a clear understanding of the project and how to set it up and use it. Feel free to customize it based on your needs!
-```
