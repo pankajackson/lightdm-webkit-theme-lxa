@@ -1,7 +1,6 @@
-import React from "react"
 import styled from "styled-components"
 
-const Container = styled.div`
+const GreeterContainer = styled.div`
   background-color: #34495e;
   padding: 40px;
   border-radius: 8px;
@@ -12,10 +11,4 @@ const Container = styled.div`
   overflow: hidden;
 `
 
-const FormContainer: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  return <Container>{children}</Container>
-}
-
-export default FormContainer
+export default GreeterContainer

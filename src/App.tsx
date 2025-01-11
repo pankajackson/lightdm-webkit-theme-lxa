@@ -1,39 +1,39 @@
 import React from "react"
-import styled from "styled-components"
-import FormContainer from "./components/FormContainer"
-import InputField from "./components/InputField"
-import Button from "./components/Button"
+import BackgroundWrapper from "@/components/BackgroundWrapper"
+import Clock from "@/components/Clock"
+import Greeter from "@/components/Greeter"
+import useLightDM from "@/lightdm/useLightDM"
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #3498db, #2ecc71);
-  font-family: "Roboto", sans-serif;
-`
+interface Props {
+  initialLightDM: LightDM
+}
 
-const Title = styled.h1`
-  color: white;
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2rem;
-`
-
-const App: React.FC = () => {
-  const handleLogin = () => {
-    console.log("Login clicked")
+const App: React.FC<Props> = ({ initialLightDM }) => {
+  const lightDM = useLightDM(initialLightDM)
+  if (!window.lightdm) {
+    console.log("lightDM not loaded")
+  } else {
+    console.log("lightDM loaded")
   }
 
   return (
-    <Wrapper>
-      <FormContainer>
-        <Title>Login</Title>
-        <InputField type="text" placeholder="Username" />
-        <InputField type="password" placeholder="Password" />
-        <Button onClick={handleLogin} label="Log In" />
-      </FormContainer>
-    </Wrapper>
+    <>
+      <BackgroundWrapper colors={{ color1: "#3498db", color2: "#2ecc71" }}>
+        <Greeter
+          currentPassword={lightDM.password}
+          isSubmitting={lightDM.isAuthenticating}
+          onLogIn={lightDM.authenticate}
+          onPasswordChange={lightDM.setPassword}
+          onUserSelect={lightDM.setUser}
+          user={lightDM.user}
+          users={lightDM.users}
+          session={lightDM.session}
+          onSessionSelect={lightDM.setSession}
+          sessions={lightDM.sessions}
+        />
+        <Clock is24Hour={false} />
+      </BackgroundWrapper>
+    </>
   )
 }
 
